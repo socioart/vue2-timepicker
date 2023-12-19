@@ -430,7 +430,7 @@ export default {
       if (!this.opts.secondRange.length) { return [] }
       return this.renderRangeList(this.opts.secondRange, 'second')
     },
-    
+
     hourLabelText () {
       return this.hourLabel || this.hourType
     },
@@ -558,7 +558,7 @@ export default {
       if (this.autoDirectionEnabled) {
         return this.forceDropOnTop ? 'drop-up' : 'drop-down'
       }
-      return this.dropDirection === 'up' ? 'drop-up' : 'drop-down'      
+      return this.dropDirection === 'up' ? 'drop-up' : 'drop-down'
     }
   },
 
@@ -1171,7 +1171,7 @@ export default {
           this.checkDropDirection()
         }
         this.showDropdown = true
-        this.$emit('open') 
+        this.$emit('open')
         if (fromUserClick) {
           if (this.fixedDropdownButton) {
             this.isActive = true
@@ -1688,7 +1688,7 @@ export default {
       if (validValue) {
         this.setSanitizedValueToSection(chunkType, validValue)
         const newChunkPos = this.getCurrentTokenChunk()
-        this.debounceSetInputSelection(newChunkPos)      
+        this.debounceSetInputSelection(newChunkPos)
       }
       if (this.debugMode) {
         if (validValue) {
@@ -1758,7 +1758,7 @@ export default {
         if (!this.baseOn12Hours) {
           return item === currentValue
         } else {
-          const valueKey = `${currentValue}${this.lowerCasedApm(this.apm) === 'pm' ? 'p' : 'a'}` 
+          const valueKey = `${currentValue}${this.lowerCasedApm(this.apm) === 'pm' ? 'p' : 'a'}`
           return item === valueKey
         }
       })
@@ -2035,7 +2035,7 @@ export default {
     this.renderFormat()
   },
 
-  beforeDestroy () {
+  beforeUnmount () {
     window.clearTimeout(this.debounceTimer)
     window.clearTimeout(this.selectionTimer)
     window.clearTimeout(this.kbInputTimer)
@@ -2053,7 +2053,7 @@ export default {
          :value="inputIsEmpty ? null : customDisplayTime"
          :placeholder="placeholder ? placeholder : formatString"
          :tabindex="disabled ? -1 : tabindex"
-         :disabled="disabled"
+         :disabled="disabled || null"
          :readonly="!manualInput"
          :autocomplete="autocomplete"
          @focus="onFocus"
@@ -2093,7 +2093,7 @@ export default {
               <li v-if="!opts.hideDisabledHours || (opts.hideDisabledHours && !isDisabled('hour', hr))"
                   :key="hIndex"
                   :class="{active: hour === hr}"
-                  :disabled="isDisabled('hour', hr)"
+                  :disabled="isDisabled('hour', hr) || null"
                   :data-key="hr"
                   v-text="hr"
                   @click="select('hour', hr)"></li>
@@ -2105,7 +2105,7 @@ export default {
               <li v-if="!opts.hideDisabledMinutes || (opts.hideDisabledMinutes && !isDisabled('minute', m))"
                   :key="mIndex"
                   :class="{active: minute === m}"
-                  :disabled="isDisabled('minute', m)"
+                  :disabled="isDisabled('minute', m) || null"
                   :data-key="m"
                   v-text="m"
                   @click="select('minute', m)"></li>
@@ -2117,7 +2117,7 @@ export default {
               <li v-if="!opts.hideDisabledSeconds || (opts.hideDisabledSeconds && !isDisabled('second', s))"
                   :key="sIndex"
                   :class="{active: second === s}"
-                  :disabled="isDisabled('second', s)"
+                  :disabled="isDisabled('second', s) || null"
                   :data-key="s"
                   v-text="s"
                   @click="select('second', s)"></li>
@@ -2129,7 +2129,7 @@ export default {
               <li v-if="!opts.hideDisabledHours || (opts.hideDisabledHours && !isDisabled('apm', a))"
                   :key="aIndex"
                   :class="{active: apm === a}"
-                  :disabled="isDisabled('apm', a)"
+                  :disabled="isDisabled('apm', a) || null"
                   :data-key="a"
                   v-text="apmDisplayText(a)"
                   @click="select('apm', a)"></li>
@@ -2297,7 +2297,7 @@ export default {
 
 .vue__time-picker .controls > * {
   cursor: pointer;
-  
+
   width: auto;
   display: flex;
   flex-flow: column nowrap;
